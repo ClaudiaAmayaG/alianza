@@ -1,0 +1,103 @@
+<div class = "col-12">
+  <div class = "col-12 d-flex flex-row">
+    <div class = "pr-4">
+      <button class = "btn btn-primary" (click) = "showCreateNewCustomer(modalCreateNewCustomer)">
+        {{ LABELS_BUTTONS.new }}</button>
+    </div>
+    <div>
+      <button class = "btn btn-primary">
+        {{ LABELS_BUTTONS.export }}</button>
+    </div>
+  </div>
+  <div class = "col-12 pt-4 d-flex flex-row">
+    <div class = "col-7 pl-0">
+      <form [formGroup] = "formSearch">
+        <div class = "input-group">
+          <input type = "text" class = "form-control border-right-0" formControlName = "sharedKeyText"
+                 placeholder = "{{ LABELS_SEARCH.messageBarSearch }}" aria-describedby = "button-search">
+          <div class = "input-group-append">
+            <button type = "button" class = "btn btn-outline-secondary">{{ LABELS_BUTTONS.search}}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class = "col-4">
+      <button class = "btn btn-primary">{{ LABELS_BUTTONS.advanceSearch }}</button>
+    </div>
+  </div>
+  <div class = "col-12 pt-5">
+    <label class = "title">{{ LABELS_TABLE.title }}</label>
+  </div>
+  <div class = "col-12 pt-4">
+    <table class = "table table-bordered">
+      <thead>
+      <tr>
+        <td>{{ LABELS_TABLE.sharedKey }}</td>
+        <td>{{ LABELS_TABLE.businessID }}</td>
+        <td>{{ LABELS_TABLE.email }}</td>
+        <td>{{ LABELS_TABLE.phone }}</td>
+        <td>{{ LABELS_TABLE.dataAdded }}</td>
+        <td></td>
+      </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #modalCreateNewCustomer>
+  <div class = "modal-header">
+    <label class = "modal-title">{{ LABELS_MODAL.titleModal }}</label>
+    <button type = "button" class="btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+  </div>
+  <form [formGroup] = "formCreateNewCustomer">
+    <div class = "modal-body">
+      <div class = "col-12 pb-3 d-flex flex-row">
+        <div class = "col-6 text-center">
+          <label for = "nameCustomer" class = "form-label">{{ LABELS_MODAL.name }}</label>
+        </div>
+        <div class = "col-6">
+          <input type = "text" formControlName = "nameCustomer" id = "nameCustomer" class = "form-control"/>
+        </div>
+      </div>
+      <div class = "col-12 pb-3 d-flex flex-row">
+        <div class = "col-6 text-center">
+          <label for = "phoneCustomer">{{ LABELS_MODAL.phone }}</label>
+        </div>
+        <div class = "col-6">
+          <input type = "number" formControlName = "phoneCustomer" id = "phoneCustomer" class = "form-control"/>
+        </div>
+      </div>
+      <div class = "col-12 pb-3 d-flex flex-row">
+        <div class = "col-6 text-center">
+          <label for = "emailCustomer">{{ LABELS_MODAL.email }}</label>
+        </div>
+        <div class = "col-6">
+          <input type = "text" formControlName = "emailCustomer" id = "emailCustomer" class = "form-control"/>
+        </div>
+      </div>
+      <div class = "col-12 pb-3 d-flex flex-row">
+        <div class = "col-6 text-center">
+          <label for = "startDateCustomer">{{ LABELS_MODAL.startDate }}</label>
+        </div>
+        <div class = "col-6">
+          <input type = "date" formControlName = "startDateCustomer" id = "startDateCustomer" class = "form-control"/>
+        </div>
+      </div>
+      <div class = "col-12 d-flex flex-row">
+        <div class = "col-6 text-center">
+          <label for = "endDateCustomer">{{ LABELS_MODAL.endDate }}</label>
+        </div>
+        <div class = "col-6">
+          <input type = "date" formControlName = "endDateCustomer" id = "endDateCustomer" class = "form-control"/>
+        </div>
+      </div>
+    </div>
+    <div class = "modal-footer">
+      <button type = "button" class = "btn btn-primary">{{ LABELS_BUTTONS.confirmation }}</button>
+    </div>
+  </form>
+</ng-template>
