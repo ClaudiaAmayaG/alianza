@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {LABELS} from './labels.constants';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-info-customer',
@@ -48,11 +48,25 @@ export class InfoCustomerComponent implements OnInit {
       sharedKeyText: [null, Validators.maxLength(this.MAXLENGTH.sharedKeyLength)]
     });
     this.formCreateNewCustomer = this.formBuilder.group({
-      nameCustomer: [null, Validators.required, Validators.maxLength(this.MAXLENGTH.nameLength)],
-      phoneCustomer: [null, Validators.required, Validators.maxLength(this.MAXLENGTH.phoneLength)],
-      emailCustomer: [null, Validators.required, Validators.maxLength(this.MAXLENGTH.emailLength)],
-      startDateCustomer: [null, Validators.required],
-      endDateCustomer: [null, Validators.required]
+      nameCustomer: new FormControl(
+        '',
+        [Validators.required,
+                      Validators.maxLength(this.MAXLENGTH.nameLength),
+                      Validators.pattern('^[a-zA-Z]+$')]),
+      phoneCustomer: new FormControl(
+        '',
+        [Validators.required,
+                      Validators.maxLength(this.MAXLENGTH.phoneLength),
+                      Validators.pattern('^[0-9]*$')]),
+      emailCustomer: new FormControl(
+        '',
+        [Validators.required, Validators.maxLength(this.MAXLENGTH.emailLength)]),
+      startDateCustomer: new FormControl(
+        '',
+        [Validators.required]),
+      endDateCustomer: new FormControl(
+        '',
+        [Validators.required])
     });
   }
 }

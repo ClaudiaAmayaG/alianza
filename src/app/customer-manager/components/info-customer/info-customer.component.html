@@ -29,75 +29,120 @@
   <div class = "col-12 pt-5">
     <label class = "title">{{ LABELS_TABLE.title }}</label>
   </div>
+  <div class="col pl-0">
   <div class = "col-12 pt-4">
-    <table class = "table table-bordered">
+    <table class = "w-100 table table-bordered">
       <thead>
       <tr>
-        <td>{{ LABELS_TABLE.sharedKey }}</td>
-        <td>{{ LABELS_TABLE.businessID }}</td>
-        <td>{{ LABELS_TABLE.email }}</td>
-        <td>{{ LABELS_TABLE.phone }}</td>
-        <td>{{ LABELS_TABLE.dataAdded }}</td>
-        <td></td>
+        <td scope="col" class="text-center label-table">{{ LABELS_TABLE.sharedKey }}</td>
+        <td scope="col" class="text-center label-table">{{ LABELS_TABLE.businessID }}</td>
+        <td scope="col" class="text-center label-table">{{ LABELS_TABLE.email }}</td>
+        <td scope="col" class="text-center label-table">{{ LABELS_TABLE.phone }}</td>
+        <td scope="col" class="text-center label-table">{{ LABELS_TABLE.dataAdded }}</td>
+        <td scope="col" class="text-center label-table"></td>
       </tr>
       </thead>
       <tbody>
-
+        <tr>
+          <td class="align-middle">
+            <div>
+              <div class="text-center label-table">
+                jperez
+              </div>
+            </div>
+          </td>
+          <td class="align-middle">
+            <div>
+              <div class="text-center label-table">
+              Juan Perez
+              </div>
+            </div>
+          </td>
+          <td class="align-middle">
+            <div>
+              <div class="text-center label-table">
+                jperez@gmail.com
+              </div>
+            </div>
+          </td>
+          <td class="align-middle">
+            <div>
+              <div class="text-center label-table">
+                31526548796
+              </div>
+            </div>
+          </td>
+          <td class="align-middle">
+            <div>
+              <div class="text-center label-table">
+                20/10/2020
+              </div>
+            </div>
+          </td>
+          <td>icono
+          </td>
+        </tr>
       </tbody>
     </table>
+  </div>
   </div>
 </div>
 
 <ng-template #modalCreateNewCustomer>
+  <div class="modal-content">
   <div class = "modal-header">
-    <label class = "modal-title">{{ LABELS_MODAL.titleModal }}</label>
-    <button type = "button" class="btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+    <label class = "modal-title label-title-form">{{ LABELS_MODAL.titleModal }}</label>
   </div>
   <form [formGroup] = "formCreateNewCustomer">
     <div class = "modal-body">
       <div class = "col-12 pb-3 d-flex flex-row">
-        <div class = "col-6 text-center">
-          <label for = "nameCustomer" class = "form-label">{{ LABELS_MODAL.name }}</label>
+        <div class = "col-4 text-center">
+          <label for = "nameCustomer" class = "label-form">{{ LABELS_MODAL.name }}</label>
         </div>
         <div class = "col-6">
           <input type = "text" formControlName = "nameCustomer" id = "nameCustomer" class = "form-control"/>
         </div>
       </div>
       <div class = "col-12 pb-3 d-flex flex-row">
-        <div class = "col-6 text-center">
-          <label for = "phoneCustomer">{{ LABELS_MODAL.phone }}</label>
+        <div class = "col-4 text-center">
+          <label for = "phoneCustomer" class = "label-form">{{ LABELS_MODAL.phone }}</label>
         </div>
         <div class = "col-6">
-          <input type = "number" formControlName = "phoneCustomer" id = "phoneCustomer" class = "form-control"/>
+          <input type = "text" formControlName = "phoneCustomer" id = "phoneCustomer" class = "form-control"/>
         </div>
       </div>
       <div class = "col-12 pb-3 d-flex flex-row">
-        <div class = "col-6 text-center">
-          <label for = "emailCustomer">{{ LABELS_MODAL.email }}</label>
+        <div class = "col-4 text-center">
+          <label for = "emailCustomer" class = "label-form">{{ LABELS_MODAL.email }}</label>
         </div>
         <div class = "col-6">
           <input type = "text" formControlName = "emailCustomer" id = "emailCustomer" class = "form-control"/>
         </div>
       </div>
       <div class = "col-12 pb-3 d-flex flex-row">
-        <div class = "col-6 text-center">
-          <label for = "startDateCustomer">{{ LABELS_MODAL.startDate }}</label>
+        <div class = "col-4 text-center">
+          <label for = "startDateCustomer" class = "label-form">{{ LABELS_MODAL.startDate }}</label>
         </div>
         <div class = "col-6">
           <input type = "date" formControlName = "startDateCustomer" id = "startDateCustomer" class = "form-control"/>
         </div>
       </div>
       <div class = "col-12 d-flex flex-row">
-        <div class = "col-6 text-center">
-          <label for = "endDateCustomer">{{ LABELS_MODAL.endDate }}</label>
+        <div class = "col-4 text-center">
+          <label for = "endDateCustomer" class = "label-form">{{ LABELS_MODAL.endDate }}</label>
         </div>
         <div class = "col-6">
           <input type = "date" formControlName = "endDateCustomer" id = "endDateCustomer" class = "form-control"/>
         </div>
       </div>
     </div>
-    <div class = "modal-footer">
-      <button type = "button" class = "btn btn-primary">{{ LABELS_BUTTONS.confirmation }}</button>
+    <div class = "modal-footer pr-5">
+      <div class="col-4 pr-5 pl-0">
+        <div class="col pr-5 pl-0">
+          <button type = "button" class = "col w-100 btn btn-primary">{{ LABELS_BUTTONS.confirmation }}</button>
+        </div>
+      </div>
     </div>
   </form>
+  </div>
 </ng-template>
