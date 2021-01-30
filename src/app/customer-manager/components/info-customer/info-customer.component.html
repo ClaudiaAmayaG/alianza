@@ -18,7 +18,7 @@
           <input type="text" class="form-control border-right-0" formControlName="sharedKeyText"
                  placeholder="{{ LABELS_SEARCH.messageBarSearch }}" aria-describedby="button-search">
           <div class="input-group-append">
-            <button type="button" class="btn btn-outline-secondary">{{ LABELS_BUTTONS.search}}
+            <button type="button" class="btn btn-outline-secondary" (click)="searchCustomer()">{{ LABELS_BUTTONS.search}}
             </button>
           </div>
         </div>
@@ -45,39 +45,34 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr *ngFor="let customer of customerDetailList">
           <td class="align-middle">
             <div>
-              <div class="text-center label-table">
-                jperez
+              <div class="text-center label-table">{{ customer.sharedKey }}
               </div>
             </div>
           </td>
           <td class="align-middle">
             <div>
-              <div class="text-center label-table">
-                Juan Perez
+              <div class="text-center label-table">{{ customer.name }}
               </div>
             </div>
           </td>
           <td class="align-middle">
             <div>
-              <div class="text-center label-table">
-                jperez@gmail.com
+              <div class="text-center label-table">{{ customer.email }}
               </div>
             </div>
           </td>
           <td class="align-middle">
             <div>
-              <div class="text-center label-table">
-                31526548796
+              <div class="text-center label-table">{{ customer.phone }}
               </div>
             </div>
           </td>
           <td class="align-middle">
             <div>
-              <div class="text-center label-table">
-                20/10/2020
+              <div class="text-center label-table">{{ customer.dataAdded }}
               </div>
             </div>
           </td>
@@ -102,7 +97,8 @@
             <label for="nameCustomer" class="label-form">{{ LABELS_MODAL.name }}</label>
           </div>
           <div class="col-6">
-            <input type="text" formControlName="nameCustomer" id="nameCustomer" class="form-control"/>
+            <input type="text" formControlName="nameCustomer" id="nameCustomer" class="form-control"
+            />
           </div>
         </div>
         <div class="col-12 pb-3 d-flex flex-row">

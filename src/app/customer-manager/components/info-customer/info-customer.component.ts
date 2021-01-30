@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {LABELS} from './labels.constants';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {ICustomerDetail} from '../../../../model/customer-detail-model';
+import {ISearchCustomer} from '../../../../model/search-customer-model';
 
 @Component({
   selector: 'app-info-customer',
@@ -17,10 +20,13 @@ export class InfoCustomerComponent implements OnInit {
   public MAXLENGTH = LABELS.maxLength;
   public formSearch: FormGroup;
   public formCreateNewCustomer: FormGroup;
+  public customerDetailList: ICustomerDetail[];
+  public searchFiltersCustomer: ISearchCustomer;
 
   constructor(
     private ngbModal: NgbModal,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private customerManagerService: HttpClient,
   ) {
   }
 
@@ -29,6 +35,7 @@ export class InfoCustomerComponent implements OnInit {
    */
   public ngOnInit(): void {
     this.initForms();
+    this.getCustomerList();
   }
 
   /**
@@ -68,6 +75,28 @@ export class InfoCustomerComponent implements OnInit {
       endDateCustomer: new FormControl(
         '',
         [Validators.required])
+    });
+  }
+
+  /**
+   * Method to get customer list
+   */
+  private getCustomerList(): void {
+    this.customerManagerService.get<ICustomerDetail[]>('http://localhost:8080/customer-manager/list-customer').subscribe(customer => {
+      this.customerDetailList = customer;
+    });
+  }
+
+  /**
+   * Method to get customer list
+   */
+  public searchCustomer(): void {
+    this.searchFiltersCustomer = {
+      sharedKey: this.formSearch.value.sharedKeyText ? this.formSearch.value.sharedKeyText : null
+    };
+    this.customerManagerService.post<ICustomerDetail[]>(
+      'http://localhost:8080/customer-manager/search-customer', this.searchFiltersCustomer).subscribe(customer => {
+        this.customerDetailList = customer;
     });
   }
 }
