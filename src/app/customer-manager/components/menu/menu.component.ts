@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LABELS} from './labels.constants';
 
 @Component({
@@ -10,7 +10,8 @@ export class MenuComponent implements OnInit {
 
   public LABELS = LABELS.option;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

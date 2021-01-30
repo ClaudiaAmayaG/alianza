@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LABELS} from './labels.constants';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -21,7 +21,8 @@ export class InfoCustomerComponent implements OnInit {
   constructor(
     private ngbModal: NgbModal,
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+  }
 
   /**
    * Method ngOnInit
@@ -51,13 +52,13 @@ export class InfoCustomerComponent implements OnInit {
       nameCustomer: new FormControl(
         '',
         [Validators.required,
-                      Validators.maxLength(this.MAXLENGTH.nameLength),
-                      Validators.pattern('^[a-zA-Z]+$')]),
+          Validators.maxLength(this.MAXLENGTH.nameLength),
+          Validators.pattern('^[a-zA-Z]+$')]),
       phoneCustomer: new FormControl(
         '',
         [Validators.required,
-                      Validators.maxLength(this.MAXLENGTH.phoneLength),
-                      Validators.pattern('^[0-9]*$')]),
+          Validators.maxLength(this.MAXLENGTH.phoneLength),
+          Validators.pattern('^[0-9]*$')]),
       emailCustomer: new FormControl(
         '',
         [Validators.required, Validators.maxLength(this.MAXLENGTH.emailLength)]),
