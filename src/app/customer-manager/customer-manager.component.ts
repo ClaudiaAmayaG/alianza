@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MenuComponent} from './components/menu/menu.component';
 
 @Component({
   selector: 'app-customer-manager',
@@ -7,10 +8,23 @@ import {Component, OnInit} from '@angular/core';
 })
 export class CustomerManagerComponent implements OnInit {
 
+  @ViewChild(MenuComponent) menuComponent;
+
+  public showInfoCustomer: boolean;
+
   constructor() {
   }
 
-  ngOnInit(): void {
+  /**
+   * Method ngOnInit
+   */
+  public ngOnInit(): void {
   }
 
+  /**
+   * Method to show component
+   */
+  public showComponent(event: boolean): void {
+    this.showInfoCustomer = event;
+  }
 }

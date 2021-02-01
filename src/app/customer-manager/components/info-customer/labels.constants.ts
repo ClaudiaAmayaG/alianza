@@ -31,5 +31,10 @@ export const LABELS = {
     nameLength: 255,
     phoneLength: 10,
     emailLength: 255,
+    dateLength: 10,
+  },
+  messageErrors: {
+    messageEmail: "Formato de correo no valido",
+    requerido: "Campo obligatorio",
   },
 };

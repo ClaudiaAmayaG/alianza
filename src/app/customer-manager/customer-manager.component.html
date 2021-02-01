@@ -6,10 +6,10 @@
   </div>
   <div class="col-12 h-100 d-flex flex-row">
     <div class="col-4 pt-4 text-center">
-      <app-menu></app-menu>
+      <app-menu (showInfoCustomerComponent)="showComponent($event)"></app-menu>
     </div>
     <div class="col-7 pt-4">
-      <app-info-customer></app-info-customer>
+      <app-info-customer *ngIf="showInfoCustomer"></app-info-customer>
     </div>
   </div>
 </div>

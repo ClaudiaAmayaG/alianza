@@ -9,6 +9,7 @@ import {InfoCustomerComponent} from './customer-manager/components/info-customer
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {CustomerManagerService} from '../service/customer-manager.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import {HttpClientModule} from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [CustomerManagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

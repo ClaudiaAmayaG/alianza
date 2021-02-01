@@ -2,11 +2,13 @@
   <div class="col-12 d-flex flex-row">
     <div class="pr-4">
       <button class="btn btn-primary" (click)="showCreateNewCustomer(modalCreateNewCustomer)">
+        <img src="assets/icons/plus.svg" alt=""/>
         {{ LABELS_BUTTONS.new }}
       </button>
     </div>
     <div>
       <button class="btn btn-primary">
+        <img src="assets/icons/folder-symlink.svg" alt="">
         {{ LABELS_BUTTONS.export }}
       </button>
     </div>
@@ -25,7 +27,69 @@
       </form>
     </div>
     <div class="col-4">
-      <button class="btn btn-primary">{{ LABELS_BUTTONS.advanceSearch }}</button>
+      <button class="btn btn-primary" (click)="formAdvance.toggle()" [attr.aria-expanded]="showAdvanceSearch">
+        {{ LABELS_BUTTONS.advanceSearch }}
+      </button>
+    </div>
+  </div>
+  <div class="col-12 pt-3" #formAdvance="ngbCollapse" [(ngbCollapse)]="!showAdvanceSearch">
+    <div class="card">
+      <form [formGroup]="formAdvanceSearch">
+        <div class="card-body">
+          <div class="col-12 pb-3 d-flex flex-row">
+            <div class="col-4 text-center">
+              <label for="nameSearch" class="label-card">{{ LABELS_MODAL.name }}</label>
+            </div>
+            <div class="col-6">
+              <input type="text" formControlName="nameSearch" id="nameSearch" class="form-control form-control-sm"
+                     (keypress)="validateLetters($event)"/>
+            </div>
+          </div>
+          <div class="col-12 pb-3 d-flex flex-row">
+            <div class="col-4 text-center">
+              <label for="phoneSearch" class="label-card">{{ LABELS_MODAL.phone }}</label>
+            </div>
+            <div class="col-6">
+              <input type="text" formControlName="phoneSearch" id="phoneSearch" class="form-control form-control-sm"
+                     (keypress)="validateNumbers($event)"/>
+            </div>
+          </div>
+          <div class="col-12 pb-3 d-flex flex-row">
+            <div class="col-4 text-center">
+              <label for="emailSearch" class="label-card">{{ LABELS_MODAL.email }}</label>
+            </div>
+            <div class="col-6">
+              <input type="text" formControlName="emailSearch" id="emailSearch" class="form-control form-control-sm"/>
+            </div>
+          </div>
+          <div class="col-12 pb-3 d-flex flex-row">
+            <div class="col-4 text-center">
+              <label for="startDateSearch" class="label-card">{{ LABELS_MODAL.startDate }}</label>
+            </div>
+            <div class="col-6">
+              <input type="date" formControlName="startDateSearch" id="startDateSearch" class="form-control form-control-sm"/>
+            </div>
+          </div>
+          <div class="col-12 d-flex flex-row">
+            <div class="col-4 text-center">
+              <label for="endDateSearch" class="label-card">{{ LABELS_MODAL.endDate }}</label>
+            </div>
+            <div class="col-6">
+              <input type="date" formControlName="endDateSearch" id="endDateSearch" class="form-control form-control-sm"/>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 d-flex flex-row">
+          <div class="col-6"></div>
+            <div class="col-4">
+              <div class="col pr-2 pb-2 pl-5">
+                <button type="button" class="col w-100 btn btn-primary" (click)="searchAdvance()">
+                  {{ LABELS_BUTTONS.confirmation }}
+                </button>
+              </div>
+            </div>
+        </div>
+      </form>
     </div>
   </div>
   <div class="col-12 pt-5">
@@ -41,7 +105,9 @@
           <td scope="col" class="text-center label-table">{{ LABELS_TABLE.email }}</td>
           <td scope="col" class="text-center label-table">{{ LABELS_TABLE.phone }}</td>
           <td scope="col" class="text-center label-table">{{ LABELS_TABLE.dataAdded }}</td>
-          <td scope="col" class="text-center label-table"></td>
+          <td scope="col" class="text-center label-table">
+            <img src="assets/icons/pencil.svg" alt="">
+          </td>
         </tr>
         </thead>
         <tbody>
@@ -72,11 +138,12 @@
           </td>
           <td class="align-middle">
             <div>
-              <div class="text-center label-table">{{ customer.dataAdded }}
+              <div class="text-center label-table">{{ customer.dataAdded | date: 'dd/MM/yyyy' }}
               </div>
             </div>
           </td>
-          <td>icono
+          <td>
+            <img src="assets/icons/pencil.svg" alt="">
           </td>
         </tr>
         </tbody>
@@ -98,7 +165,7 @@
           </div>
           <div class="col-6">
             <input type="text" formControlName="nameCustomer" id="nameCustomer" class="form-control"
-            />
+                   (keypress)="validateLetters($event)"/>
           </div>
         </div>
         <div class="col-12 pb-3 d-flex flex-row">
@@ -106,7 +173,8 @@
             <label for="phoneCustomer" class="label-form">{{ LABELS_MODAL.phone }}</label>
           </div>
           <div class="col-6">
-            <input type="text" formControlName="phoneCustomer" id="phoneCustomer" class="form-control"/>
+            <input type="text" formControlName="phoneCustomer" id="phoneCustomer" class="form-control"
+                   (keypress)="validateNumbers($event)"/>
           </div>
         </div>
         <div class="col-12 pb-3 d-flex flex-row">
@@ -137,7 +205,9 @@
       <div class="modal-footer pr-5">
         <div class="col-4 pr-5 pl-0">
           <div class="col pr-5 pl-0">
-            <button type="button" class="col w-100 btn btn-primary">{{ LABELS_BUTTONS.confirmation }}</button>
+            <button type="button" class="col w-100 btn btn-primary" (click)="save()" [disabled]="formCreateNewCustomer.invalid">
+              {{ LABELS_BUTTONS.confirmation }}
+            </button>
           </div>
         </div>
       </div>

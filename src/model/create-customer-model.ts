@@ -1,6 +1,5 @@
-export interface ISearchCustomer {
+export interface ICreateCustomer {
 
-  sharedKey: string;
   name: string;
   phone: string;
   email: string;

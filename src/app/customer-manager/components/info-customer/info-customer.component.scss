@@ -22,6 +22,12 @@
   color: #6A6E6F;
 }
 
+.label-card {
+  font-family: "font-weight-bold";
+  font-size: 14px;
+  color: #6A6E6F;
+}
+
 .table-bordered {
   border: 2px solid !important;
   border-color: #939797 !important;
@@ -41,4 +47,8 @@
 
 .modal-footer {
   border: none
+}
+
+.card {
+  background-color: #89C5D8;
 }
