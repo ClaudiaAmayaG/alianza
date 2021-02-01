@@ -42,7 +42,7 @@
             </div>
             <div class="col-6">
               <input type="text" formControlName="nameSearch" id="nameSearch" class="form-control form-control-sm"
-                     (keypress)="validateLetters($event)"/>
+                     (keypress)="validateLetters($event)" [maxlength]="this.MAXLENGTH.nameLength"/>
             </div>
           </div>
           <div class="col-12 pb-3 d-flex flex-row">
@@ -51,7 +51,7 @@
             </div>
             <div class="col-6">
               <input type="text" formControlName="phoneSearch" id="phoneSearch" class="form-control form-control-sm"
-                     (keypress)="validateNumbers($event)"/>
+                     (keypress)="validateNumbers($event)" [maxlength]="this.MAXLENGTH.phoneLength"/>
             </div>
           </div>
           <div class="col-12 pb-3 d-flex flex-row">
@@ -59,7 +59,8 @@
               <label for="emailSearch" class="label-card">{{ LABELS_MODAL.email }}</label>
             </div>
             <div class="col-6">
-              <input type="text" formControlName="emailSearch" id="emailSearch" class="form-control form-control-sm"/>
+              <input type="text" formControlName="emailSearch" id="emailSearch" class="form-control form-control-sm"
+                     [maxlength]="this.MAXLENGTH.emailLength"/>
             </div>
           </div>
           <div class="col-12 pb-3 d-flex flex-row">
@@ -67,7 +68,8 @@
               <label for="startDateSearch" class="label-card">{{ LABELS_MODAL.startDate }}</label>
             </div>
             <div class="col-6">
-              <input type="date" formControlName="startDateSearch" id="startDateSearch" class="form-control form-control-sm"/>
+              <input type="date" formControlName="startDateSearch" id="startDateSearch" class="form-control form-control-sm"
+                     [maxlength]="this.MAXLENGTH.dateLength"/>
             </div>
           </div>
           <div class="col-12 d-flex flex-row">
@@ -75,7 +77,8 @@
               <label for="endDateSearch" class="label-card">{{ LABELS_MODAL.endDate }}</label>
             </div>
             <div class="col-6">
-              <input type="date" formControlName="endDateSearch" id="endDateSearch" class="form-control form-control-sm"/>
+              <input type="date" formControlName="endDateSearch" id="endDateSearch" class="form-control form-control-sm"
+                     [maxlength]="this.MAXLENGTH.dateLength"/>
             </div>
           </div>
         </div>
@@ -148,6 +151,7 @@
         </tr>
         </tbody>
       </table>
+      <label *ngIf="noData" class="text-center">{{ MESSAGE_ERROR.messageNoData }}</label>
     </div>
   </div>
 </div>
@@ -165,7 +169,7 @@
           </div>
           <div class="col-6">
             <input type="text" formControlName="nameCustomer" id="nameCustomer" class="form-control"
-                   (keypress)="validateLetters($event)"/>
+                   (keypress)="validateLetters($event)" [maxlength]="this.MAXLENGTH.nameLength"/>
           </div>
         </div>
         <div class="col-12 pb-3 d-flex flex-row">
@@ -174,7 +178,7 @@
           </div>
           <div class="col-6">
             <input type="text" formControlName="phoneCustomer" id="phoneCustomer" class="form-control"
-                   (keypress)="validateNumbers($event)"/>
+                   (keypress)="validateNumbers($event)" [maxlength]="this.MAXLENGTH.phoneLength"/>
           </div>
         </div>
         <div class="col-12 pb-3 d-flex flex-row">
@@ -182,7 +186,12 @@
             <label for="emailCustomer" class="label-form">{{ LABELS_MODAL.email }}</label>
           </div>
           <div class="col-6">
-            <input type="text" formControlName="emailCustomer" id="emailCustomer" class="form-control"/>
+            <input type="text" formControlName="emailCustomer" id="emailCustomer" class="form-control"
+                   [maxlength]="this.MAXLENGTH.emailLength"/>
+            <p class="text-center"
+               *ngIf="this.formCreateNewCustomer.controls.emailCustomer.touched && this.formCreateNewCustomer.controls.emailCustomer.errors">
+              {{ MESSAGE_ERROR.messageEmail }}
+            </p>
           </div>
         </div>
         <div class="col-12 pb-3 d-flex flex-row">
@@ -190,7 +199,8 @@
             <label for="startDateCustomer" class="label-form">{{ LABELS_MODAL.startDate }}</label>
           </div>
           <div class="col-6">
-            <input type="date" formControlName="startDateCustomer" id="startDateCustomer" class="form-control"/>
+            <input type="date" formControlName="startDateCustomer" id="startDateCustomer" class="form-control"
+                   [maxlength]="this.MAXLENGTH.dateLength"/>
           </div>
         </div>
         <div class="col-12 d-flex flex-row">
@@ -198,7 +208,12 @@
             <label for="endDateCustomer" class="label-form">{{ LABELS_MODAL.endDate }}</label>
           </div>
           <div class="col-6">
-            <input type="date" formControlName="endDateCustomer" id="endDateCustomer" class="form-control"/>
+            <input type="date" formControlName="endDateCustomer" id="endDateCustomer" class="form-control"
+                   [maxlength]="this.MAXLENGTH.dateLength"/>
+            <p class="text-center"
+               *ngIf="this.formCreateNewCustomer.controls.endDateCustomer.touched && this.formCreateNewCustomer.controls.endDateCustomer.errors">
+              {{ MESSAGE_ERROR.messageDate }}
+            </p>
           </div>
         </div>
       </div>

@@ -36,5 +36,7 @@ export const LABELS = {
   messageErrors: {
     messageEmail: "Formato de correo no valido",
     requerido: "Campo obligatorio",
+    messageNoData: "No existen datos",
+    messageDate: "End date no puede ser menor a Start date",
   },
 };

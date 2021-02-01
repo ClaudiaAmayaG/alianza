@@ -27,7 +27,9 @@ export class InfoCustomerComponent implements OnInit {
   public searchFiltersCustomer: ISearchCustomer;
   public createCustomer: ICreateCustomer;
   public emailError: string;
+  public dateError: string;
   public showAdvanceSearch: boolean;
+  public noData: boolean;
 
   constructor(
     private ngbModal: NgbModal,
@@ -56,71 +58,10 @@ export class InfoCustomerComponent implements OnInit {
   }
 
   /**
-   * Method to init form of search
-   */
-  private initForms(): void {
-    this.formSearch = this.formBuilder.group({
-      sharedKeyText: [null, Validators.maxLength(this.MAXLENGTH.sharedKeyLength)]
-    });
-    this.formCreateNewCustomer = this.formBuilder.group({
-      nameCustomer: new FormControl(
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(this.MAXLENGTH.nameLength)]),
-      phoneCustomer: new FormControl(
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(this.MAXLENGTH.phoneLength)]),
-      emailCustomer: new FormControl(
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(this.MAXLENGTH.emailLength)]),
-      startDateCustomer: new FormControl(
-        '',
-        [Validators.required]),
-      endDateCustomer: new FormControl(
-        '',
-        [Validators.required])
-    });
-    this.formAdvanceSearch = this.formBuilder.group({
-      nameSearch: new FormControl(
-        '',
-        [Validators.maxLength(this.MAXLENGTH.nameLength)]),
-      phoneSearch: new FormControl(
-        '',
-        [Validators.maxLength(this.MAXLENGTH.phoneLength)]),
-      emailSearch: new FormControl(
-        '',
-        [Validators.maxLength(this.MAXLENGTH.emailLength)]),
-      startDateSearch: new FormControl(''),
-      endDateSearch: new FormControl('')
-    });
-  }
-
-  /**
-   * Method to get customer list
-   */
-  private getCustomerList(): void {
-    this.searchFiltersCustomer = {
-      sharedKey: null,
-      name: null,
-      phone: null,
-      email: null,
-      startDate: null,
-      endDate: null
-    };
-    this.customerManagerService.searchCustomer(this.searchFiltersCustomer).subscribe(customer => {
-      this.customerDetailList = customer;
-    });
-  }
-
-  /**
    * Method to search by shared key
    */
   public searchCustomer(): void {
+    console.log('Inicia searchCustomer');
     this.searchFiltersCustomer = {
       sharedKey: this.formSearch.value.sharedKeyText ? this.formSearch.value.sharedKeyText : null,
       name: null,
@@ -130,7 +71,13 @@ export class InfoCustomerComponent implements OnInit {
       endDate: null
     };
     this.customerManagerService.searchCustomer(this.searchFiltersCustomer).subscribe(customer => {
-      this.customerDetailList = customer;
+      if (customer.length > 0) {
+        this.customerDetailList = customer;
+        this.noData = false;
+      }else{
+        this.customerDetailList = null;
+        this.noData = true;
+      }
     });
   }
 
@@ -138,6 +85,7 @@ export class InfoCustomerComponent implements OnInit {
    * Method to search advance
    */
   public searchAdvance(): void {
+    console.log('Inicia searchAdvance');
     this.searchFiltersCustomer = {
       sharedKey: null,
       name: this.formAdvanceSearch.value.nameSearch ? this.formAdvanceSearch.value.nameSearch : null,
@@ -147,7 +95,13 @@ export class InfoCustomerComponent implements OnInit {
       endDate: this.formAdvanceSearch.value.endDateSearch ? this.formAdvanceSearch.value.endDateSearch : null
     };
     this.customerManagerService.searchCustomer(this.searchFiltersCustomer).subscribe(customer => {
-      this.customerDetailList = customer;
+      if (customer.length > 0) {
+        this.customerDetailList = customer;
+        this.noData = false;
+      }else{
+        this.customerDetailList = null;
+        this.noData = true;
+      }
     });
   }
 
@@ -155,6 +109,7 @@ export class InfoCustomerComponent implements OnInit {
    * Method to create customer
    */
   public save(): void {
+    console.log('Inicia save');
     this.createCustomer = {
       name: this.formCreateNewCustomer.value.nameCustomer,
       phone: this.formCreateNewCustomer.value.phoneCustomer,
@@ -177,7 +132,7 @@ export class InfoCustomerComponent implements OnInit {
     const letters = new RegExp('^[a-zA-Z +áéíóúñÁÉÍÓÚÑ ]+$');
     const value = event.key;
     if (!letters.test(value)){
-     event.preventDefault();
+      event.preventDefault();
     }
   }
 
@@ -193,15 +148,102 @@ export class InfoCustomerComponent implements OnInit {
   }
 
   /**
-   * Method to validate email
+   * Method to init form of search
    */
-  public validationEmail(abstractControl: AbstractControl): ValidationErrors {
-    const charactersEmail = new RegExp('^[a-zA-Z0-9]+[_\w\.\-]*[a-zA-Z0-9]+@[a-zA-Z0-9][_\w\.\-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*$');
-    const email = abstractControl.value;
-    if (!charactersEmail.test(email)){
-      this.emailError = this.MESSAGE_ERROR.messageEmail;
-    }
+  private initForms(): void {
+    this.formSearch = this.formBuilder.group({
+      sharedKeyText: [null, Validators.maxLength(this.MAXLENGTH.sharedKeyLength)]
+    });
+    this.formCreateNewCustomer = this.formBuilder.group({
+      nameCustomer: new FormControl(
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(this.MAXLENGTH.nameLength)]),
+      phoneCustomer: new FormControl(
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(this.MAXLENGTH.phoneLength)]),
+      emailCustomer: new FormControl(
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(this.MAXLENGTH.emailLength),
+          this.validateEmail.bind(this)]),
+      startDateCustomer: new FormControl(
+        '',
+        [Validators.required]),
+      endDateCustomer: new FormControl(
+        '',
+        [Validators.required, this.validateEndDate.bind(this)])
+    });
+    this.formAdvanceSearch = this.formBuilder.group({
+      nameSearch: new FormControl(
+        '',
+        [Validators.maxLength(this.MAXLENGTH.nameLength)]),
+      phoneSearch: new FormControl(
+        '',
+        [Validators.maxLength(this.MAXLENGTH.phoneLength)]),
+      emailSearch: new FormControl(
+        '',
+        [Validators.maxLength(this.MAXLENGTH.emailLength)]),
+      startDateSearch: new FormControl(''),
+      endDateSearch: new FormControl('')
+    });
+  }
 
-    return {emailError: this.emailError};
+  /**
+   * Method to get customer list
+   */
+  private getCustomerList(): void {
+    console.log('Inicia getCustomerList');
+    this.searchFiltersCustomer = {
+      sharedKey: null,
+      name: null,
+      phone: null,
+      email: null,
+      startDate: null,
+      endDate: null
+    };
+    this.customerManagerService.searchCustomer(this.searchFiltersCustomer).subscribe(customer => {
+      if (customer.length > 0) {
+        this.customerDetailList = customer;
+        this.noData = false;
+      } else {
+        this.customerDetailList = null;
+        this.noData = true;
+      }
+    });
+  }
+
+  /**
+   * Function to validate start date with end date
+   */
+  private validateEndDate(control: AbstractControl): ValidationErrors {
+      if (control.value) {
+        const startDate = this.formCreateNewCustomer.controls.startDateCustomer.value;
+        const endDate = control.value;
+        if (endDate < startDate) {
+          this.dateError = this.MESSAGE_ERROR.messageDate;
+
+          return { dateError: this.dateError };
+        }
+      };
+  }
+
+  /**
+   * Function to validate email
+   */
+  private validateEmail(control: AbstractControl): ValidationErrors {
+    if (control.value) {
+      const charactersEmail = new RegExp('^[a-zA-Z0-9]+[_\w\.\-]*[a-zA-Z0-9]+@[a-zA-Z0-9][_\w\.\-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*$');
+      const email = control.value;
+      if (!charactersEmail.test(email)) {
+        this.emailError = this.MESSAGE_ERROR.messageEmail;
+
+        return { emailError: this.emailError };
+      }
+    };
   }
 }
