@@ -5,6 +5,12 @@ import {Observable} from 'rxjs';
 import {ISearchCustomer} from '../model/search-customer-model';
 import {ICreateCustomer} from '../model/create-customer-model';
 
+/**
+ * Service to customer manager.
+ *
+ * @author camaya@asesoftware.com
+ * @version 1.0.0
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +21,9 @@ export class CustomerManagerService {
   ) { }
 
   /**
-   * Service to get customer list
+   * Service to search customer list
+   * @param ISearchCustomer
+   * @return ICustomerDetail[]
    */
   public searchCustomer(searchFiltersCustomer: ISearchCustomer): Observable<ICustomerDetail[]> {
     return this.httpClient.post<ICustomerDetail[]>(
@@ -25,6 +33,8 @@ export class CustomerManagerService {
 
   /**
    * Service to create customer
+   * @param ICreateCustomer
+   * @return boolean
    */
   public createCustomer(createCustomer: ICreateCustomer): Observable<boolean> {
     return this.httpClient.post<boolean>(

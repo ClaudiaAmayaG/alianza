@@ -1,6 +1,12 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {LABELS} from './labels.constants';
 
+/**
+ * Component menu.
+ *
+ * @author camaya@asesoftware.com
+ * @version 1.0.0
+ */
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',

@@ -1,6 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MenuComponent} from './components/menu/menu.component';
 
+/**
+ * Component customer manager.
+ *
+ * @author camaya@asesoftware.com
+ * @version 1.0.0
+ */
 @Component({
   selector: 'app-customer-manager',
   templateUrl: './customer-manager.component.html',

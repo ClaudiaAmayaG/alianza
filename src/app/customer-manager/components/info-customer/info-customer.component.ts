@@ -7,6 +7,12 @@ import {ISearchCustomer} from '../../../../model/search-customer-model';
 import {CustomerManagerService} from '../../../../service/customer-manager.service';
 import {ICreateCustomer} from '../../../../model/create-customer-model';
 
+/**
+ * Component customer information.
+ *
+ * @author camaya@asesoftware.com
+ * @version 1.0.0
+ */
 @Component({
   selector: 'app-info-customer',
   templateUrl: './info-customer.component.html',
@@ -106,7 +112,7 @@ export class InfoCustomerComponent implements OnInit {
   }
 
   /**
-   * Method to create customer
+   * Method to save customer
    */
   public save(): void {
     console.log('Inicia save');
@@ -148,7 +154,7 @@ export class InfoCustomerComponent implements OnInit {
   }
 
   /**
-   * Method to init form of search
+   * Method to init form
    */
   private initForms(): void {
     this.formSearch = this.formBuilder.group({
